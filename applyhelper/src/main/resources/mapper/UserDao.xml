@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lcr.applyhelper.dao.UserDao">
+
+    <select id="findAll" resultType="com.lcr.applyhelper.entity.User">
+        SELECT userID,wechatID,userCountry
+        FROM users
+    </select>
+
+    <select id="queryUserById" resultType="com.lcr.applyhelper.entity.User">
+        SELECT userID,wechatID,userCountry
+        FROM users
+        WHERE wechatID=#{wechatId}
+    </select>
+
+    <insert id="insertUser" parameterType="com.lcr.applyhelper.entity.User"
+            useGeneratedKeys="true" keyProperty="userID" keyColumn="userID">
+        INSERT INTO
+        users (wechatID,userCountry)
+        VALUES (#{wechatID},#{userCountry})
+    </insert>
+
+    <update id="updateUser" parameterType="com.lcr.applyhelper.entity.User">
+        UPDATE users
+        <set>
+            <if test="wechatID!=null">wechatID=#{wechatID},</if>
+            <if test="userCountry!=null">userCountry=#{userCountry}</if>
+        </set>
+        WHERE userID=#{userID}
+    </update>
+
+    <delete id="deleteUser">
+        DELETE FROM users
+        WHERE userID=#{userId}
+    </delete>
+
+</mapper>
