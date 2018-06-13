@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcr.applyhelper.dao.JobapplyMapper">
+  <resultMap id="BaseResultMap" type="com.lcr.applyhelper.entity.JobApply">
+    <id column="userID" jdbcType="VARCHAR" property="userID" />
+    <id column="jobID" jdbcType="INTEGER" property="jobID" />
+    <result column="applystatus" jdbcType="INTEGER" property="applystatus" />
+    <result column="startdate" jdbcType="VARCHAR" property="startdate" />
+    <result column="stopdate" jdbcType="VARCHAR" property="stopdate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    userID, jobID, applystatus, startdate, stopdate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.lcr.applyhelper.entity.JobapplyKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jobapply
+    where userID = #{userID,jdbcType=VARCHAR}
+      and jobID = #{jobID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lcr.applyhelper.entity.JobapplyKey">
+    delete from jobapply
+    where userID = #{userID,jdbcType=VARCHAR}
+      and jobID = #{jobID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lcr.applyhelper.entity.JobApply">
+    insert into jobapply (userID, jobID, applystatus, 
+      startdate, stopdate)
+    values (#{userID,jdbcType=VARCHAR}, #{jobID,jdbcType=INTEGER}, #{applystatus,jdbcType=INTEGER},
+      #{startdate,jdbcType=VARCHAR}, #{stopdate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lcr.applyhelper.entity.JobApply">
+    insert into jobapply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userID != null">
+        userID,
+      </if>
+      <if test="jobID != null">
+        jobID,
+      </if>
+      <if test="applystatus != null">
+        applystatus,
+      </if>
+      <if test="startdate != null">
+        startdate,
+      </if>
+      <if test="stopdate != null">
+        stopdate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userID != null">
+        #{userID,jdbcType=VARCHAR},
+      </if>
+      <if test="jobID != null">
+        #{jobID,jdbcType=INTEGER},
+      </if>
+      <if test="applystatus != null">
+        #{applystatus,jdbcType=INTEGER},
+      </if>
+      <if test="startdate != null">
+        #{startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="stopdate != null">
+        #{stopdate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lcr.applyhelper.entity.JobApply">
+    update jobapply
+    <set>
+      <if test="applystatus != null">
+        applystatus = #{applystatus,jdbcType=INTEGER},
+      </if>
+      <if test="startdate != null">
+        startdate = #{startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="stopdate != null">
+        stopdate = #{stopdate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userID = #{userID,jdbcType=VARCHAR}
+      and jobID = #{jobID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lcr.applyhelper.entity.JobApply">
+    update jobapply
+    set applystatus = #{applystatus,jdbcType=INTEGER},
+      startdate = #{startdate,jdbcType=VARCHAR},
+      stopdate = #{stopdate,jdbcType=VARCHAR}
+    where userID = #{userID,jdbcType=VARCHAR}
+      and jobID = #{jobID,jdbcType=INTEGER}
+  </update>
+</mapper>

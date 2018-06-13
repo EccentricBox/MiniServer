@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcr.applyhelper.dao.UniversityMapper">
+  <resultMap id="BaseResultMap" type="com.lcr.applyhelper.entity.University">
+    <id column="uniID" jdbcType="INTEGER" property="uniID" />
+    <result column="uniName" jdbcType="VARCHAR" property="uniName" />
+    <result column="badge" jdbcType="VARCHAR" property="badge" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="rank" jdbcType="INTEGER" property="rank" />
+    <result column="programNum" jdbcType="VARCHAR" property="programNum" />
+    <result column="stuNum" jdbcType="VARCHAR" property="stuNum" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="dormitory" jdbcType="VARCHAR" property="dormitory" />
+    <result column="environment" jdbcType="VARCHAR" property="environment" />
+    <result column="fun" jdbcType="VARCHAR" property="fun" />
+    <result column="video" jdbcType="VARCHAR" property="video" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uniID, uniName,badge,level, province, city, rank, programNum, stuNum, introduction, dormitory,
+    environment, fun, video, image
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from university
+    where uniID = #{uniID,jdbcType=INTEGER}
+  </select>
+  <select id="findAll" resultMap="BaseResultMap">
+    select *
+    from university
+    order by rank
+  </select>
+  <select id="findByProvince" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from university
+    where province = #{province,jdbcType=VARCHAR}
+  </select>
+  <select id="findByRank" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from university
+    where rank >= #{start,jdbcType=INTEGER} and rank <![CDATA[<=]]> #{stop,jdbcType=INTEGER}
+    order by rank
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from university
+    where uniID = #{uniID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lcr.applyhelper.entity.University">
+    <selectKey keyProperty="uniID" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into university (uniName,badge,level, province, city,
+      rank, programNum, stuNum, 
+      introduction, dormitory, environment, 
+      fun, video, image)
+    values (#{uniName,jdbcType=VARCHAR},#{badge,jdbcType=VARCHAR},#{level,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},
+      #{rank,jdbcType=VARCHAR}, #{programNum,jdbcType=VARCHAR}, #{stuNum,jdbcType=VARCHAR}, 
+      #{introduction,jdbcType=VARCHAR}, #{dormitory,jdbcType=VARCHAR}, #{environment,jdbcType=VARCHAR}, 
+      #{fun,jdbcType=VARCHAR},#{video,jdbcType=VARCHAR},#{image,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lcr.applyhelper.entity.University">
+    <selectKey keyProperty="uniID" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into university
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uniName != null">
+        uniName,
+      </if>
+      <if test="badge != null">
+        badge,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="rank != null">
+        rank,
+      </if>
+      <if test="programNum != null">
+        programNum,
+      </if>
+      <if test="stuNum != null">
+        stuNum,
+      </if>
+      <if test="introduction != null">
+        introduction,
+      </if>
+      <if test="dormitory != null">
+        dormitory,
+      </if>
+      <if test="environment != null">
+        environment,
+      </if>
+      <if test="fun != null">
+        fun,
+      </if>
+      <if test="video != null">
+        video,
+      </if>
+      <if test="image != null">
+        image,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uniName != null">
+        #{uniName,jdbcType=VARCHAR},
+      </if>
+      <if test="badge != null">
+        #{badge,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="programNum != null">
+        #{programNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stuNum != null">
+        #{stuNum,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="dormitory != null">
+        #{dormitory,jdbcType=VARCHAR},
+      </if>
+      <if test="environment != null">
+        #{environment,jdbcType=VARCHAR},
+      </if>
+      <if test="fun != null">
+        #{fun,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null">
+        #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        #{image,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lcr.applyhelper.entity.University">
+    update university
+    <set>
+      <if test="uniName != null">
+        uniName = #{uniName,jdbcType=VARCHAR},
+      </if>
+      <if test="badge != null">
+        #{badge,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        rank = #{rank,jdbcType=INTEGER},
+      </if>
+      <if test="programNum != null">
+        programNum = #{programNum,jdbcType=VARCHAR},
+      </if>
+      <if test="stuNum != null">
+        stuNum = #{stuNum,jdbcType=VARCHAR},
+      </if>
+      <if test="introduction != null">
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="dormitory != null">
+        dormitory = #{dormitory,jdbcType=VARCHAR},
+      </if>
+      <if test="environment != null">
+        environment = #{environment,jdbcType=VARCHAR},
+      </if>
+      <if test="fun != null">
+        fun = #{fun,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null">
+        video = #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uniID = #{uniID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lcr.applyhelper.entity.University">
+    update university
+    set uniName = #{uniName,jdbcType=VARCHAR},
+      badge = #{badge,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      rank = #{rank,jdbcType=INTEGER},
+      programNum = #{programNum,jdbcType=VARCHAR},
+      stuNum = #{stuNum,jdbcType=VARCHAR},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      dormitory = #{dormitory,jdbcType=VARCHAR},
+      environment = #{environment,jdbcType=VARCHAR},
+      fun = #{fun,jdbcType=VARCHAR},
+      video = #{video,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR}
+    where uniID = #{uniID,jdbcType=INTEGER}
+  </update>
+</mapper>

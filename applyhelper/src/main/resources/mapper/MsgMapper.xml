@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcr.applyhelper.dao.MsgMapper">
+  <resultMap id="BaseResultMap" type="com.lcr.applyhelper.entity.Msg">
+    <id column="msgID" jdbcType="INTEGER" property="msgID" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
+    <result column="sender" jdbcType="VARCHAR" property="sender" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="fID" jdbcType="VARCHAR" property="fID" />
+    <result column="sID" jdbcType="VARCHAR" property="sID" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    msgID, type, title, time, sender, content, fID, sID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from msg
+    where msgID = #{msgID,jdbcType=INTEGER}
+  </select>
+  <select id="findAll" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from msg
+    where fID = #{fID,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from msg
+    where msgID = #{msgID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lcr.applyhelper.entity.Msg">
+    <selectKey keyProperty="msgID" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into msg (type, title, time, 
+      sender, content, fID, 
+      sID)
+    values (#{type,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, 
+      #{sender,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{fID,jdbcType=VARCHAR}, 
+      #{sID,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lcr.applyhelper.entity.Msg">
+    <selectKey keyProperty="msgID" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into msg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        type,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="sender != null">
+        sender,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="fID != null">
+        fID,
+      </if>
+      <if test="sID != null">
+        sID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null">
+        #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="fID != null">
+        #{fID,jdbcType=VARCHAR},
+      </if>
+      <if test="sID != null">
+        #{sID,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lcr.applyhelper.entity.Msg">
+    update msg
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="sender != null">
+        sender = #{sender,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="fID != null">
+        fID = #{fID,jdbcType=VARCHAR},
+      </if>
+      <if test="sID != null">
+        sID = #{sID,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where msgID = #{msgID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lcr.applyhelper.entity.Msg">
+    update msg
+    set type = #{type,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      time = #{time,jdbcType=VARCHAR},
+      sender = #{sender,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      fID = #{fID,jdbcType=VARCHAR},
+      sID = #{sID,jdbcType=VARCHAR}
+    where msgID = #{msgID,jdbcType=INTEGER}
+  </update>
+</mapper>

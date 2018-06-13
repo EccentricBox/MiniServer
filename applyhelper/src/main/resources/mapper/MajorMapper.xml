@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcr.applyhelper.dao.MajorMapper">
+  <resultMap id="BaseResultMap" type="com.lcr.applyhelper.entity.Major">
+    <id column="majorID" jdbcType="INTEGER" property="majorID" />
+    <id column="uniID" jdbcType="INTEGER" property="uniID" />
+    <result column="majorName" jdbcType="VARCHAR" property="majorName" />
+    <result column="year" jdbcType="VARCHAR" property="year" />
+    <result column="language" jdbcType="VARCHAR" property="language" />
+    <result column="fee" jdbcType="VARCHAR" property="fee" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    majorID, uniID, majorName, year, language, fee
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.lcr.applyhelper.entity.MajorKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from major
+    where majorID = #{majorID,jdbcType=INTEGER}
+      and uniID = #{uniID,jdbcType=INTEGER}
+  </select>
+  <select id="selectByUniID" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from major
+    where uniID = #{uniID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.lcr.applyhelper.entity.MajorKey">
+    delete from major
+    where majorID = #{majorID,jdbcType=INTEGER}
+      and uniID = #{uniID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lcr.applyhelper.entity.Major">
+    insert into major (majorID, uniID, majorName, 
+      year, language, fee
+      )
+    values (#{majorID,jdbcType=INTEGER}, #{uniID,jdbcType=INTEGER}, #{majorName,jdbcType=VARCHAR}, 
+      #{year,jdbcType=VARCHAR}, #{language,jdbcType=VARCHAR}, #{fee,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lcr.applyhelper.entity.Major">
+    insert into major
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="majorID != null">
+        majorID,
+      </if>
+      <if test="uniID != null">
+        uniID,
+      </if>
+      <if test="majorName != null">
+        majorName,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="language != null">
+        language,
+      </if>
+      <if test="fee != null">
+        fee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="majorID != null">
+        #{majorID,jdbcType=INTEGER},
+      </if>
+      <if test="uniID != null">
+        #{uniID,jdbcType=INTEGER},
+      </if>
+      <if test="majorName != null">
+        #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null">
+        #{fee,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lcr.applyhelper.entity.Major">
+    update major
+    <set>
+      <if test="majorName != null">
+        majorName = #{majorName,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="language != null">
+        language = #{language,jdbcType=VARCHAR},
+      </if>
+      <if test="fee != null">
+        fee = #{fee,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where majorID = #{majorID,jdbcType=INTEGER}
+      and uniID = #{uniID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lcr.applyhelper.entity.Major">
+    update major
+    set majorName = #{majorName,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      language = #{language,jdbcType=VARCHAR},
+      fee = #{fee,jdbcType=VARCHAR}
+    where majorID = #{majorID,jdbcType=INTEGER}
+      and uniID = #{uniID,jdbcType=INTEGER}
+  </update>
+</mapper>

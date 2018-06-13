@@ -1,13 +1,11 @@
-package com.lcr.applyhelper.service;
+package com.lcr.applyhelper.dao;
 
 import com.lcr.applyhelper.entity.User;
 
-import java.util.List;
-
-public interface UserService {
+public interface UserMapper {
     int deleteByPrimaryKey(String wechatID);
 
-    boolean insert(User record);
+    int insert(User record);
 
     int insertSelective(User record);
 
@@ -16,5 +14,4 @@ public interface UserService {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
-
 }

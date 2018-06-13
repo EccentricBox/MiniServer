@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lcr.applyhelper.dao.RecommendMapper">
+  <resultMap id="BaseResultMap" type="com.lcr.applyhelper.entity.Recommend">
+    <id column="uniID" jdbcType="INTEGER" property="uniID" />
+    <result column="remImg" jdbcType="VARCHAR" property="remImg" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    uniID, remImg
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from recommend
+    where uniID = #{uniID,jdbcType=INTEGER}
+  </select>
+  <select id="findAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from recommend
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from recommend
+    where uniID = #{uniID,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lcr.applyhelper.entity.Recommend">
+    <selectKey keyProperty="uniID" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into recommend (remImg)
+    values (#{remImg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lcr.applyhelper.entity.Recommend">
+    <selectKey keyProperty="uniID" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into recommend
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="remImg != null">
+        remImg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="remImg != null">
+        #{remImg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lcr.applyhelper.entity.Recommend">
+    update recommend
+    <set>
+      <if test="remImg != null">
+        remImg = #{remImg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where uniID = #{uniID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lcr.applyhelper.entity.Recommend">
+    update recommend
+    set remImg = #{remImg,jdbcType=VARCHAR}
+    where uniID = #{uniID,jdbcType=INTEGER}
+  </update>
+</mapper>

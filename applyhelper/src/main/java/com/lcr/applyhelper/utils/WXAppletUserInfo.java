@@ -39,8 +39,8 @@ public class WXAppletUserInfo {
         //ResourceBundle resource = ResourceBundle.getBundle("weixin");   //读取属性文件
         String requestUrl ="https://api.weixin.qq.com/sns/jscode2session"; //resource.getString();  请求地址 https://api.weixin.qq.com/sns/jscode2session
         Map<String,String> requestUrlParam = new HashMap<String,String>();
-        requestUrlParam.put("appid", "wx77fde75c11976761");  //开发者设置中的appId
-        requestUrlParam.put("secret", "148aad8370348140567cf1485eec75e7"); //开发者设置中的appSecret
+        requestUrlParam.put("appid", "wxd2d49aca40112e3c");  //开发者设置中的appId
+        requestUrlParam.put("secret", "eea24be668eff35b394eb15cc05d0290"); //开发者设置中的appSecret
         requestUrlParam.put("js_code", wxCode); //小程序调用wx.login返回的code
         requestUrlParam.put("grant_type", "authorization_code");    //默认参数
 
